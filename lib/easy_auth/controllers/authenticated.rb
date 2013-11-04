@@ -9,6 +9,7 @@ module EasyAuth::Controllers::Authenticated
 
   def attempt_to_authenticate(resource=nil)
     if account_not_signed_in?
+      byebug
       session[:requested_path] = request.path
       session[resource] = params[resource] if resource
       respond_to do |format|
@@ -19,6 +20,7 @@ module EasyAuth::Controllers::Authenticated
   end
 
   def method_missing(resource, *args)
+    byebug
     resource_str = resource.to_s
     return resource_str[6..-1] if resource_str[/\Astash_/]
     super
